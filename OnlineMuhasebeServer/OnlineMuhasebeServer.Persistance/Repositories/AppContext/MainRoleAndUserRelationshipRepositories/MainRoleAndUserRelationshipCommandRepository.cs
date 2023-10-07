@@ -1,0 +1,10 @@
+using OnlineMuhasebeServer.Domain.AppEntities;
+using OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.AppDbContext;
+using OnlineMuhasebeServer.Domain.Repositories.AppContext.MainRoleAndUserRelationshipRepositories;
+
+namespace OnlineMuhasebeServer.Persistance.Repositories.AppContext.MainRoleAndUserRelationshipRepositories;
+
+public class MainRoleAndUserRelationshipCommandRepository : AppCommandRepository<MainRoleAndUserRelationship>, IMainRoleAndUserRelationshipCommandRepository
+{
+    public MainRoleAndUserRelationshipCommandRepository(Context.AppDbContext context) : base(context) { }
+}

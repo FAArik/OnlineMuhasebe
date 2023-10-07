@@ -1,0 +1,5 @@
+﻿using OnlineMuhasebeServer.Application.Messaging;
+
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.CreateMainRoleAndUserRl;
+
+public sealed record RemoveByIdMainRoleAndUserRelationshipCommand(string UserId,string MainRoleId,string CompanyId):ICommand<CreateMainRoleAndUserRlCommandResponse>;

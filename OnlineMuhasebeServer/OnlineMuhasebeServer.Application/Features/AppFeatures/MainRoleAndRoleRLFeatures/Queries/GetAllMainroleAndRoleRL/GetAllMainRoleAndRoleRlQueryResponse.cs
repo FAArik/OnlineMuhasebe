@@ -1,0 +1,7 @@
+﻿using OnlineMuhasebeServer.Application.Messaging;
+using OnlineMuhasebeServer.Domain.AppEntities;
+
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.MainRoleAndRoleRLFeatures.Queries.GetAllMainroleAndRoleRL;
+
+public sealed record GetAllMainRoleAndRoleRlQueryResponse(IList<MainRoleAndRoleRelationship> MainRoleAndRoleRelationships) : IQuery<GetAllMainRoleAndRoleRlQueryResponse>;
+

@@ -1,0 +1,6 @@
+﻿using OnlineMuhasebeServer.Application.Messaging;
+
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.MainRoleAndRoleRLFeatures.Commands.RemoveByIdMainRoleAndRoleRl;
+
+public sealed record RemoveByIdMainRoleAndRoleRlCommand(string Id):ICommand<RemoveByIdMainRoleAndRoleRlCommandResponse>;
+

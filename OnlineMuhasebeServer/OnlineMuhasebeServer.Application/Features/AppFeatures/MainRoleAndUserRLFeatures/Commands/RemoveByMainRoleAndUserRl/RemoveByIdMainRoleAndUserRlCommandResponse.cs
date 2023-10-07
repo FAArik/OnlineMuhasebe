@@ -1,0 +1,3 @@
+﻿namespace OnlineMuhasebeServer.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.RemoveByMainRoleAndUserRl;
+
+public sealed record RemoveByIdMainRoleAndUserRlCommandResponse(string Message="Kullanıcıdan rol yetkisi kaldırıldı");
