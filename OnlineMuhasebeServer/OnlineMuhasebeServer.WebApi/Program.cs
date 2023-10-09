@@ -25,6 +25,8 @@ app.UseAuthorization();
 
 app.UseAuthentication();
 
+app.UseCors();
+
 app.MapControllers();
 
 using (var scoped = app.Services.CreateScope())

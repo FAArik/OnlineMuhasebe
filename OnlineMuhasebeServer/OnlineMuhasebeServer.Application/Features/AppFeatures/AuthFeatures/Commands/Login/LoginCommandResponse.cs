@@ -1,7 +1,6 @@
-﻿using OnlineMuhasebeServer.Domain.AppEntities;
-using OnlineMuhasebeServer.Domain.Dtos;
+﻿using OnlineMuhasebeServer.Domain.Dtos;
 
-namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AuthFeatures.Commands.Login
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AutvschFeatures.Commands.Login
 {
     public sealed record LoginCommandResponse(
         RefreshTokenDto Token,

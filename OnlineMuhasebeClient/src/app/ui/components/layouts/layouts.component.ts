@@ -1,6 +1,8 @@
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { CryptoService } from 'src/app/common/services/crypto.service';
+import { LoginResponseModel } from '../auth/models/login-response.model';
 
 @Component({
   selector: 'app-layouts',
@@ -10,5 +12,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./layouts.component.css']
 })
 export class LayoutsComponent {
+  loginResponse:LoginResponseModel=new LoginResponseModel();
+  constructor(private _crypto:CryptoService){
+    let loginResponseString=_crypto.decrypt(localStorage.getItem("accessToken").toString());
+    this.loginResponse=JSON.parse(loginResponseString);
+    console.log(this.loginResponse);
+  }
 
+  
 }

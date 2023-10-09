@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ValidInputDirective } from 'src/app/common/directives/valid-input.directive';
 import { LoadingButtonComponent } from 'src/app/common/components/loading-button/loading-button.component';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -14,14 +15,14 @@ import { LoadingButtonComponent } from 'src/app/common/components/loading-button
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
+  constructor(private _auth:AuthService){}
+
   isLoading:boolean=false;
   login(form: NgForm) {
     if (form.valid) {
       this.isLoading=true;
-      console.log(form.value)
-      setTimeout(() => {
-        this.isLoading=false;
-      }, 3000);
+      this._auth.login(form.value);
     }
   }
 }
