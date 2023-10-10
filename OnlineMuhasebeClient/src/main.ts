@@ -1,9 +1,12 @@
 import { importProvidersFrom } from '@angular/core';
 import { BrowserModule,bootstrapApplication } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { provideHttpClient} from "@angular/common/http";
+
 import { AppComponent } from './app/app.component';
 import { AuthGuard } from './app/ui/components/auth/guards/auth.guard';
-import { provideHttpClient} from "@angular/common/http";
+
+
 bootstrapApplication(AppComponent,{
   providers:[
     provideHttpClient(),
@@ -17,6 +20,9 @@ bootstrapApplication(AppComponent,{
           children:[{
             path:"",
             loadComponent:()=>import("./app/ui/components/blank/blank.component").then(c=>c.BlankComponent)
+          },{
+            path:"ucafs",
+            loadComponent:()=>import("./app/ui/components/ucaf/ucaf.component").then(c=>c.UcafComponent)
           }]
         },
         {

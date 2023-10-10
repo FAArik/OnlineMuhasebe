@@ -1,18 +1,18 @@
 export class Navigation{
-    routerLink:string ="";
+    routerLnk:string ="";
     name:string="";
-    icon:string=""
+    icon:string="";
 }
 
 export const Navigations:Navigation[]=[
     {
-        routerLink:"/",
+        routerLnk:"/",
         name:"Ana Sayfa",
         icon:"fa fa-home"
     },
     {
-        routerLink:"ucafs",
+        routerLnk:"ucafs",
         name:"Hesap planı",
-        icon:"fa fa-circle"
-    }
+        icon:"fa fa-file-signature"
+    },
 ]

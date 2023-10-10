@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
-import { Navigations } from './../../../router/navbar.navigation';
 import { LoginResponseModel } from '../../auth/models/login-response.model';
+import { Navigations } from '../../../router/navigation';
 import { AuthService } from '../../auth/services/auth.service';
+
 
 @Component({
   selector: 'app-aside',
@@ -13,6 +14,7 @@ import { AuthService } from '../../auth/services/auth.service';
   templateUrl: './aside.component.html',
   styleUrls: ['./aside.component.css']
 })
+
 export class AsideComponent {
 @Input() loginResponse :LoginResponseModel =new LoginResponseModel();
 
