@@ -20,9 +20,7 @@ export class AsideComponent {
 
 navigations=Navigations;
 
-constructor(private _auth:AuthService){}
+constructor(){}
 
-logout(){
-  this._auth.logout();
-}
+
 }

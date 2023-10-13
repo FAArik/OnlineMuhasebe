@@ -4,7 +4,7 @@ using OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.CompanyD
 
 namespace OnlineMuhasebeServer.Persistance.Repositories.CompanyContext.UCAFRepositories
 {
-    public class UCAFCommandRepository : CompanyCommandRepository<UniformChartOfAccount>, IUCAFCommandRepository
+    public sealed class UCAFCommandRepository : CompanyCommandRepository<UniformChartOfAccount>, IUCAFCommandRepository
     {
     }
 }
