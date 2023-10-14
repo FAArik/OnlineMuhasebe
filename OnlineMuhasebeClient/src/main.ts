@@ -1,17 +1,21 @@
 import { importProvidersFrom } from '@angular/core';
-import { BrowserModule,bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication,BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { provideHttpClient} from "@angular/common/http";
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app/app.component';
 import { AuthGuard } from './app/ui/components/auth/guards/auth.guard';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 bootstrapApplication(AppComponent,{
   providers:[
     provideHttpClient(),
+    FormsModule,
     importProvidersFrom(
       BrowserModule,
+      SweetAlert2Module.forRoot(),
       RouterModule.forRoot([
         {
           path:"",

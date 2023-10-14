@@ -1,4 +1,5 @@
 <app-blank title="Hesap planı" [navs]="navs">
+    <!--Ekleme Formu-->
     <app-section SectionTitle="Hesap planı ekleme formu" *ngIf="isAddForm">
         <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
             <div class="row">
@@ -6,9 +7,9 @@
                     <label for="code">Hesap Planı Kodu</label>
                     <input ngModel type="text" #code name="code" class="form-control" [validInput]="code.validity.valid"
                         required minlength=5>
-                        <div class="invalid-feedback">
-                            Kod alanı en az 5 karakter olmalıdır!
-                        </div>
+                    <div class="invalid-feedback">
+                        Kod alanı en az 5 karakter olmalıdır!npm install sweetalert2 @sweetalert2/ngx-sweetalert2
+                    </div>
                 </div>
                 <div class="col-md-2">
                     <label for="type">Tipi</label>
@@ -22,9 +23,9 @@
                     <label for="name">Hesap Planı Adı</label>
                     <input ngModel type="text" class="form-control" #name name="name" [validInput]="name.validity.valid"
                         required minlength=3>
-                        <div class="invalid-feedback">
-                            Hesap planı adı en az 3 karakter olmalıdır!
-                        </div>
+                    <div class="invalid-feedback">
+                        Hesap planı adı en az 3 karakter olmalıdır!
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <label>İşlemler</label>
@@ -34,18 +35,64 @@
                     </app-loading-button>
                 </div>
                 <div class="col-md-12">
-                     <button (click)="cancel()" class="btn btn-outline-danger w-100">
+                    <button (click)="cancel()" class="btn btn-outline-danger w-100">
                         <i class="fa fa-xmark"></i>
                         Vazgeç</button>
                 </div>
             </div>
         </form>
-
     </app-section>
+    <!--Ekleme Formu-->
 
+    <!--Güncelleme Formu-->
+    <app-section SectionTitle="Hesap planı güncelleme formu" *ngIf="isUpdateForm">
+        <form #updateForm="ngForm" autocomplete="off" (ngSubmit)="update(updateForm)">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="code">Hesap Planı Kodu</label>
+                    <input [(ngModel)]="updateUcaf.code" type="text" #code name="code" class="form-control"
+                        [validInput]="code.validity.valid" required minlength=5>
+                    <div class="invalid-feedback">
+                        Kod alanı en az 5 karakter olmalıdır
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="type">Tipi</label>
+                    <select [(ngModel)]="updateUcaf.type" #type name="type" class="form-control"
+                        [validInput]="type.validity.valid">
+                        <option value="M">Muavin</option>
+                        <option value="G">Grup</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="name">Hesap Planı Adı</label>
+                    <input [(ngModel)]="updateUcaf.name" type="text" class="form-control" #name name="name"
+                        [validInput]="name.validity.valid" required minlength=3>
+                    <div class="invalid-feedback">
+                        Hesap planı adı en az 3 karakter olmalıdır!
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>İşlemler</label>
+                    <app-loading-button [form]="updateForm" btnClass="btn btn-outline-info w-100"
+                        [isloading]="isLoading" btnName="Güncelle" btnLoadingClass="btn btn-outline-info w-100"
+                        btnLoadingDescription="Güncelleniyor..." iconClass="fa fa-pencil">
+                    </app-loading-button>
+                </div>
+                <div class="col-md-12">
+                    <button (click)="cancel()" class="btn btn-outline-danger w-100">
+                        <i class="fa fa-xmark"></i>
+                        Vazgeç</button>
+                </div>
+            </div>
+        </form>
+    </app-section>
+    <!--Güncelleme Formu-->
+
+    <!--Hesap planı listesi-->
     <app-section sectionTitle="Hesap planı listesi">
         <div class="form-group float-left">
-            <button class="btn btn-outline-primary" *ngIf="!isAddForm" (click)="showAddForm()">
+            <button class="btn btn-outline-primary" *ngIf="!isAddForm && !isUpdateForm" (click)="showAddForm()">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -63,19 +110,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let ucaf of ucafs | ucafPipe:filterText" []>
+                    <tr *ngFor="let ucaf of ucafs | ucafPipe:filterText" [class]="setTrClass(ucaf.type)">
                         <td [innerText]="ucaf.code"></td>
                         <td [innerText]="ucaf.type"></td>
                         <td [innerText]="ucaf.name"></td>
                         <td>
-                            <div *ngIf="ucaf.type!= 'A' ">
-                                <button class="btn btn-outline-warning btn-sm" title="Güncelle">
+                            <div *ngIf="ucaf.type!= 'A' && !isUpdateForm">
+                                <button class="btn btn-outline-warning btn-sm" (click)="get(ucaf)" title="Güncelle">
                                     <i class="class fa fa-edit"></i>
                                 </button>
                                 <button class="btn btn-outline-danger btn-sm mx-1" title="Sil"
                                     (click)="removeById(ucaf.id)">
                                     <i class="class fa fa-trash"></i>
-                            </button>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -83,4 +130,5 @@
             </table>
         </div>
     </app-section>
+    <!--Hesap planı listesi-->
 </app-blank>

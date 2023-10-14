@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { BlankComponent } from 'src/app/common/components/blank/blank.component';
 import { NavModel } from 'src/app/common/components/blank/models/nav.model';
@@ -13,6 +13,7 @@ import { LoadingButtonComponent } from 'src/app/common/components/loading-button
 import { ToastrService, ToastrType } from 'src/app/common/services/toastr.service';
 import { MessageResponseModel } from 'src/app/common/models/Message-response.model';
 import { RemoveByIdUCAFModel } from './models/removeByIdUCAF.model';
+import { SwalService } from 'src/app/common/services/swal.service';
 
 @Component({
   selector: 'app-ucaf',
@@ -22,6 +23,7 @@ import { RemoveByIdUCAFModel } from './models/removeByIdUCAF.model';
   styleUrls: ['./ucaf.component.css']
 })
 export class UcafComponent implements OnInit {
+
   navs: NavModel[] = [
     {
       routerLnk: "/",
@@ -34,21 +36,26 @@ export class UcafComponent implements OnInit {
       name: "Hesap planı"
     }
   ]
-
+  ucafs: UcafModel[] = [];
+  updateUcaf:UcafModel=new UcafModel();
+  ucaftype: string = "M";
+  filterText: string = "";
+  isLoading: boolean = false;
+  isAddForm: boolean = false;
+  isUpdateForm: boolean = false;
+  
   constructor(
     private _ucafService: UcafService,
-    private _toastr: ToastrService) { }
+    private _toastr: ToastrService,
+    private _swal: SwalService) { }
 
-  filterText: string = "";
-  isAddForm: boolean = false;
-  ucaftype: string = "M";
-  isLoading: boolean = false;
+  
 
   ngOnInit(): void {
     this.getAll();
   }
 
-  ucafs: UcafModel[] = [];
+  
   getAll() {
     this._ucafService.getAll(res => this.ucafs = res.data);
   }
@@ -77,21 +84,30 @@ export class UcafComponent implements OnInit {
       })
     }
   }
+  get(model:UcafModel ){
+    this.updateUcaf={...model};
+    this.isUpdateForm=true;
+    this.isAddForm=false;
+
+  }
+  update(form:NgForm){
+
+  }
   cancel() {
     this.isAddForm = false;
+    this.isUpdateForm=false;
   }
 
   removeById(id: string) {
-    var result = confirm("Silme işlemini yapmak istiyor musunuz?");
-    if (result) {
-      let model = new RemoveByIdUCAFModel();
+    this._swal.callSwal("Sil", "Sil?", "Hesap planı kodunu silmek istiyor musunuz?", () => {
+      let model = new RemoveByIdUCAFModel ();
       model.Id = id;
 
       this._ucafService.removeById(model, res => {
         this.getAll();
         this._toastr.toast(ToastrType.Info, "Silme Başarılı!", res.message);
       })
-    }
+    })
   }
 
   setTrClass(type: string) {
