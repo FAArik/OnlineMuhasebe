@@ -30,14 +30,16 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AuthFeatures.Com
 
             IList<UserAndCompanyRelationship> companies = await _authService.GetCompanyListByUserIdAsync(user.Id);
             if (companies.Count == 0) throw new Exception("Herhangi bir şirkette kayıtlı değilsiniz!");
-            IList<CompanyDto> companyDtos = companies.Select(s => new Domain.Dtos.CompanyDto(CompanyId: s.Id, CompanyName: s.Company.Name)).ToList();
+            IList<CompanyDto> companyDtos = companies.Select(s => new Domain.Dtos.CompanyDto(CompanyId: s.Company.Id, CompanyName: s.Company.Name)).ToList();
             LoginCommandResponse response = new(
                 Token: await _jwtProvider.CreateTokenAsync(user),
                 Email: user.Email,
                 UserId: user.Id,
                 NameLastName: user.NameLastName,
                 Companies: companyDtos,
-                Company: companyDtos[0]);
+                Company: companyDtos[0],
+                Year:DateTime.Now.Year
+                );
             return response;
         }
     }

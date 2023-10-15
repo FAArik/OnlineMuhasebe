@@ -51,7 +51,7 @@ public class PersistanceDIServiceInstaller : IServiceInstaller
         #endregion
         #endregion
 
-            #region Repositories
+        #region Repositories
             #region CompanyDbContext
             services.AddScoped<IUCAFCommandRepository, UCAFCommandRepository>();
             services.AddScoped<IUCAFQueryRepository, UCAFQueryRepository>();

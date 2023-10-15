@@ -14,9 +14,8 @@ public sealed class CompanyService : ICompanyService
     private readonly ICompanyDbCommandRepository _companyDbCommandRepository;
     private readonly ICompanyDbQueryRepository _companyDbQueryRepository;
     private readonly IAppUnitOfWork _unitOfWork;
-
-
     private readonly IMapper _mapper;
+    
 
     public CompanyService(IMapper mapper, ICompanyDbCommandRepository companyDbCommandRepository, ICompanyDbQueryRepository companyDbQueryRepository, IAppUnitOfWork unitOfWork)
     {
@@ -29,7 +28,7 @@ public sealed class CompanyService : ICompanyService
     public async Task CreateCompany(CreateCompanyCommand request,CancellationToken cancellationToken)
     {
         Company company = _mapper.Map<Company>(request);
-        company.Id = Guid.NewGuid().ToString();
+        company.Id = Guid.NewGuid().ToString(); 
         await _companyDbCommandRepository.AddAsync(company, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }

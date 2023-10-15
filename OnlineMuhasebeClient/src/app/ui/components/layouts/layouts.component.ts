@@ -1,6 +1,7 @@
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
+
 import { CryptoService } from 'src/app/common/services/crypto.service';
 import { LoginResponseModel } from '../auth/models/login-response.model';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -11,11 +12,12 @@ import { ControlSidebarComponent } from './control-sidebar/control-sidebar.compo
 @Component({
   selector: 'app-layouts',
   standalone: true,
-  imports: [CommonModule,RouterModule,NavbarComponent,AsideComponent,FooterComponent,ControlSidebarComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, AsideComponent,FooterComponent,ControlSidebarComponent],
   templateUrl: './layouts.component.html',
   styleUrls: ['./layouts.component.css']
 })
 export class LayoutsComponent {
+  
   loginResponse:LoginResponseModel=new LoginResponseModel();
   constructor(private _crypto:CryptoService){
     let loginResponseString=_crypto.decrypt(localStorage.getItem("accessToken").toString());

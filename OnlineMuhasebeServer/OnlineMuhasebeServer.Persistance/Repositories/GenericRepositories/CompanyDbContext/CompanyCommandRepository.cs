@@ -25,7 +25,7 @@ public class CompanyCommandRepository<T> : ICompanyCommandRepository<T> where T 
 
     public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken)
     {
-        Entity.AddRangeAsync(entities, cancellationToken);
+        await Entity.AddRangeAsync(entities, cancellationToken);
     }
 
     public void Remove(T entity)
