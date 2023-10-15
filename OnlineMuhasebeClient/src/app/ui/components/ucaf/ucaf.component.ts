@@ -11,7 +11,6 @@ import { UcafPipe } from './pipes/ucaf.pipe';
 import { ValidInputDirective } from 'src/app/common/directives/valid-input.directive';
 import { LoadingButtonComponent } from 'src/app/common/components/loading-button/loading-button.component';
 import { ToastrService, ToastrType } from 'src/app/common/services/toastr.service';
-import { MessageResponseModel } from 'src/app/common/models/Message-response.model';
 import { RemoveByIdUCAFModel } from './models/removeByIdUCAF.model';
 import { SwalService } from 'src/app/common/services/swal.service';
 
@@ -37,25 +36,24 @@ export class UcafComponent implements OnInit {
     }
   ]
   ucafs: UcafModel[] = [];
-  updateUcaf:UcafModel=new UcafModel();
+  updateModel: UcafModel = new UcafModel();
   ucaftype: string = "M";
   filterText: string = "";
-  isLoading: boolean = false;
   isAddForm: boolean = false;
   isUpdateForm: boolean = false;
-  
+
   constructor(
     private _ucafService: UcafService,
     private _toastr: ToastrService,
     private _swal: SwalService) { }
 
-  
+
 
   ngOnInit(): void {
     this.getAll();
   }
 
-  
+
   getAll() {
     this._ucafService.getAll(res => this.ucafs = res.data);
   }
@@ -66,9 +64,7 @@ export class UcafComponent implements OnInit {
 
   add(form: NgForm) {
     if (form.valid) {
-      this.isLoading = true;
       let model = new UcafModel();
-      console.log(form);
 
       model.code = form.controls["code"].value;
       model.type = form.controls["type"].value;
@@ -79,28 +75,34 @@ export class UcafComponent implements OnInit {
         form.controls["name"].setValue("");
         this.ucaftype = "M";
         this.getAll();
-        this.isLoading = false;
         this._toastr.toast(ToastrType.Success, "Başarılı!", res.message)
       })
     }
   }
-  get(model:UcafModel ){
-    this.updateUcaf={...model};
-    this.isUpdateForm=true;
-    this.isAddForm=false;
+  get(model: UcafModel) {
+    this.updateModel = { ...model };
+    this.isUpdateForm = true;
+    this.isAddForm = false;
 
   }
-  update(form:NgForm){
+  update(form: NgForm) {
+    if (form.valid) {
 
+      this._ucafService.update(this.updateModel, (res) => {
+        this.cancel();
+        this.getAll();
+        this._toastr.toast(ToastrType.Info, "Başarılı!", res.message)
+      })
+    }
   }
   cancel() {
     this.isAddForm = false;
-    this.isUpdateForm=false;
+    this.isUpdateForm = false;
   }
 
   removeById(id: string) {
     this._swal.callSwal("Sil", "Sil?", "Hesap planı kodunu silmek istiyor musunuz?", () => {
-      let model = new RemoveByIdUCAFModel ();
+      let model = new RemoveByIdUCAFModel();
       model.Id = id;
 
       this._ucafService.removeById(model, res => {

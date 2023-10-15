@@ -1,5 +1,5 @@
 export class TokenModel{
-    Token:string="";
-    RefreshToken:string="";
-    RefreshTokenExpires:string="";
+    token:string="";
+    refreshToken:string="";
+    refreshTokenExpires:string="";
 }

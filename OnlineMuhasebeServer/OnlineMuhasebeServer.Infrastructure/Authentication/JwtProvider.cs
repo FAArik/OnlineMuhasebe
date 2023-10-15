@@ -21,7 +21,7 @@ namespace OnlineMuhasebeServer.Infrastructure.Authentication
             _UserManager = userManager;
         }
 
-        DateTime expires = DateTime.Now.AddDays(1);
+
         public async Task<RefreshTokenDto> CreateTokenAsync(AppUser user)
         {
             var claims = new Claim[]
@@ -31,6 +31,8 @@ namespace OnlineMuhasebeServer.Infrastructure.Authentication
                 new Claim(ClaimTypes.Authentication,user.Id),
                // new Claim(ClaimTypes.Role,string.Join(",",roles))
             };
+            DateTime expires = DateTime.Now.AddDays(1);
+
             JwtSecurityToken jwtSecurityToken = new(
                     issuer: _jwtOptions.Issuer,
                     audience: _jwtOptions.Audience,
@@ -41,10 +43,10 @@ namespace OnlineMuhasebeServer.Infrastructure.Authentication
 
             string token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             string refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            user.RefreshToken = token;
+            user.RefreshToken = refreshToken;
             user.RefreshTokenExpires = expires.AddDays(1);
             await _UserManager.UpdateAsync(user);
-            return new(token,refreshToken,user.RefreshTokenExpires);
+            return new(token, refreshToken, user.RefreshTokenExpires);
         }
     }
 }

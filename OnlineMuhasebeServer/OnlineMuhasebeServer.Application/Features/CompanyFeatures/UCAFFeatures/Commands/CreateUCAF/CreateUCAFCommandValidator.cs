@@ -8,7 +8,7 @@ public sealed class CreateUCAFCommandValidator:AbstractValidator<CreateUCAFComma
     {
         RuleFor(x=>x.Code).NotEmpty().WithMessage("Hesap planı kodu boş olamaz!");
         RuleFor(x=>x.Code).NotNull().WithMessage("Hesap planı kodu boş olamaz!");
-        //RuleFor(x => x.Code).MinimumLength(4).WithMessage("Hesap planı kodu en az 4 karakter olmalıdır");
+        RuleFor(x => x.Code).MinimumLength(5).WithMessage("Hesap planı kodu en az 5 karakter olmalıdır");
         RuleFor(x=>x.Name).NotEmpty().WithMessage("Hesap planı adı boş olamaz!");
         RuleFor(x=>x.Name).NotNull().WithMessage("Hesap planı adı boş olamaz!");
         RuleFor(x => x.CompanyId).NotEmpty().WithMessage("Şirket bilgisi boş olamaz!");

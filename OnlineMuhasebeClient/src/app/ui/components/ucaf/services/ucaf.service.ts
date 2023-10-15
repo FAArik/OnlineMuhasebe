@@ -1,6 +1,7 @@
+import { LoginResponseService } from './../../../../common/services/login-response.service';
 import { Injectable } from '@angular/core';
 
-import { MessageResponseModel } from 'src/app/common/models/Message-response.model';
+import { MessageResponseModel } from 'src/app/common/models/message-response.model';
 import { ResponseModel } from 'src/app/common/models/response.model';
 import { CryptoService } from 'src/app/common/services/crypto.service';
 import { GenericHttpService } from 'src/app/common/services/generic-http.service';
@@ -14,11 +15,10 @@ import { UcafModel } from '../models/ucaf.model';
 export class UcafService {
   loginResponse: LoginResponseModel = new LoginResponseModel();
   constructor(
-    private _cypto: CryptoService,
-    private _http: GenericHttpService
+    private _http: GenericHttpService,
+    private _loginResponse: LoginResponseService
   ) {
-    let loginResponseStr = _cypto.decrypt(localStorage.getItem("accessToken").toString());
-    this.loginResponse = JSON.parse(loginResponseStr)
+    this.loginResponse = this._loginResponse.getLoginResponseModel();
   }
 
 
@@ -30,9 +30,13 @@ export class UcafService {
     model.companyId = this.loginResponse.company.companyId;
     this._http.post<MessageResponseModel>("UCAFs/CreateUCAF", model, (res) => callback(res))
   }
+  update(model: UcafModel, callback: (res: MessageResponseModel) => void) {
+    model.companyId = this.loginResponse.company.companyId;
+    this._http.post<MessageResponseModel>("UCAFs/UpdateUCAF", model, (res) => callback(res))
+  }
 
   removeById(model: RemoveByIdUCAFModel, callback: (res: MessageResponseModel) => void) {
-    model.companyId=this.loginResponse.company.companyId;
+    model.companyId = this.loginResponse.company.companyId;
     this._http.post<MessageResponseModel>("UCAFs/RemoveByIdUCAF", model, (res) => callback(res));
   }
 }

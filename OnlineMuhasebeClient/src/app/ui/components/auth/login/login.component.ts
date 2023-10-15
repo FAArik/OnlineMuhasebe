@@ -17,18 +17,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
 
-  constructor(private _auth:AuthService){
+  constructor(
+    private _auth:AuthService){
 
   }
 
-  isLoading:boolean=false;
   login(form: NgForm) {
     if (form.valid) {
       this._auth.login(form.value);
-      this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 2000);
     }
   }
 }

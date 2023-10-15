@@ -33,7 +33,7 @@ public sealed class UCAFService : IUCAFService
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _queryRepository.SetDbContexInstance(_context);
 
-        UniformChartOfAccount ucaf = await _queryRepository.GetById(Id,false );
+        UniformChartOfAccount ucaf = await _queryRepository.GetById(Id, false);
         if (ucaf.Type == 'G')
         {
             IList<UniformChartOfAccount> list = await _queryRepository.GetWhere(x => x.Code.StartsWith(ucaf.Code) && x.Type == 'M').ToListAsync();
@@ -2252,6 +2252,16 @@ public sealed class UCAFService : IUCAFService
         return await _queryRepository.GetFirstByExpression(p => p.Code == Code, cancellationToken);
     }
 
+    public async Task<UniformChartOfAccount> GetByIdAsync(string Id, string companyId)
+    {
+        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+        _UnitOfWork.SetDbContexInstance(_context);
+        _queryRepository.SetDbContexInstance(_context);
+
+        return await _queryRepository.GetById(Id);
+
+    }
+
     public async Task RemoveByIdUcafAsync(string Id, string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -2260,5 +2270,16 @@ public sealed class UCAFService : IUCAFService
 
         await _commandRepository.RemoveById(Id);
         await _UnitOfWork.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(UniformChartOfAccount account, string companyId)
+    {
+        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+        _UnitOfWork.SetDbContexInstance(_context);
+        _commandRepository.SetDbContexInstance(_context);
+
+        _commandRepository.Update(account);
+        await _UnitOfWork.SaveChangesAsync();
+
     }
 }

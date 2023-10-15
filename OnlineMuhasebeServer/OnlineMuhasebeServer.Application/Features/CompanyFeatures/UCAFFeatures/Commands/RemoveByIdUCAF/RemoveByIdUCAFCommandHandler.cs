@@ -16,7 +16,7 @@ public sealed class RemoveByIdUCAFCommandHandler : ICommandHandler<RemoveByIdUCA
     {
         var checkbyId = await _ucafService.CheckRemoveByIdGroupAndAvailable(request.Id, request.companyId);
 
-        if (checkbyId == true) throw new Exception("Hesap planına bağlı alt hesaplar olduğundan silinemiyor!");
+        if (checkbyId == false) throw new Exception("Hesap planına bağlı alt hesaplar olduğundan silinemiyor!");
 
         await _ucafService.RemoveByIdUcafAsync(request.Id, request.companyId);
         return new();

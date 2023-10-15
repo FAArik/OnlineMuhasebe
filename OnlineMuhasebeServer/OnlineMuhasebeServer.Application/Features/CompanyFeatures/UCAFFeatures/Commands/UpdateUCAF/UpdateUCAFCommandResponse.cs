@@ -1,3 +1,3 @@
 ﻿namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Commands.UpdateUCAF;
 
-public sealed record UpdateUCAFCommandResponse(string Message="Hesap planı başarıyla güncellenmiştir!");
+public sealed record UpdateUCAFCommandResponse(string Message="Hesap planı başarıyla güncellendi!");
