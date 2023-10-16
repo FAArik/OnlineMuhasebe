@@ -11,8 +11,13 @@ export const Navigations:Navigation[]=[
         icon:"fa fa-home"
     },
     {
-        routerLnk:"ucafs",
+        routerLnk:"/ucafs",
         name:"Hesap planı",
         icon:"fa fa-file-signature"
     },
+    {
+        routerLnk:"/reports",
+        name:"Raporlar",
+        icon:"fa fa-chart-pie"
+    }
 ]

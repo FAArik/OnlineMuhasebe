@@ -15,7 +15,7 @@ export class ErrorService {
         this._toastr.toast(ToastrType.Error, "Hata!", "Api adresine ulaşılamıyor!")
         break;
       case 404:
-        this._toastr.toast(ToastrType.Error, "Hata!", "Api adresine bulunamıyor!")
+        this._toastr.toast(ToastrType.Error, "Hata!", "Api adresi bulunamıyor!")
         break;
       case 500:
         if (err.error.Errors) {
