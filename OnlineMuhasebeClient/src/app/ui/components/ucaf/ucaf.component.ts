@@ -13,11 +13,15 @@ import { LoadingButtonComponent } from 'src/app/common/components/loading-button
 import { ToastrService, ToastrType } from 'src/app/common/services/toastr.service';
 import { RemoveByIdUCAFModel } from './models/removeByIdUCAF.model';
 import { SwalService } from 'src/app/common/services/swal.service';
+import { ExcelLoadingButtonComponent } from 'src/app/common/components/excel-loading-button/excel-loading-button.component';
+import { ReportRequestModel } from 'src/app/common/models/report-request.model';
+import { ReportService } from '../reports/services/report.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ucaf',
   standalone: true,
-  imports: [CommonModule, BlankComponent, SectionComponent, UcafPipe, FormsModule, ValidInputDirective, LoadingButtonComponent],
+  imports: [CommonModule, BlankComponent, SectionComponent, UcafPipe, FormsModule, ValidInputDirective, LoadingButtonComponent, ExcelLoadingButtonComponent],
   templateUrl: './ucaf.component.html',
   styleUrls: ['./ucaf.component.css']
 })
@@ -45,14 +49,15 @@ export class UcafComponent implements OnInit {
   constructor(
     private _ucafService: UcafService,
     private _toastr: ToastrService,
-    private _swal: SwalService) { }
+    private _swal: SwalService,
+    private _reportService: ReportService,
+    private _router:Router) { }
 
 
 
   ngOnInit(): void {
     this.getAll();
   }
-
 
   getAll() {
     this._ucafService.getAll(res => this.ucafs = res.data);
@@ -79,6 +84,7 @@ export class UcafComponent implements OnInit {
       })
     }
   }
+
   get(model: UcafModel) {
     this.updateModel = { ...model };
     this.isUpdateForm = true;
@@ -99,7 +105,6 @@ export class UcafComponent implements OnInit {
     this.isAddForm = false;
     this.isUpdateForm = false;
   }
-
   removeById(id: string) {
     this._swal.callSwal("Sil", "Sil?", "Hesap planı kodunu silmek istiyor musunuz?", () => {
       let model = new RemoveByIdUCAFModel();
@@ -119,5 +124,13 @@ export class UcafComponent implements OnInit {
       return "text-primary"
     else
       return ""
+  }
+
+  exportExcel() {
+    let model: ReportRequestModel = new ReportRequestModel();
+    this._reportService.request(model,(res)=>{
+      this._toastr.toast(ToastrType.Info,"",res.message);
+      this._router.navigateByUrl("/reports");
+    })
   }
 }

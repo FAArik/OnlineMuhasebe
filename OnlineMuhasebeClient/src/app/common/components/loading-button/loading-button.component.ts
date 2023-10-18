@@ -18,6 +18,7 @@ export class LoadingButtonComponent {
   @Input() btnClass: string = "btn-outline-primary w-100";
   @Input() btnLoadingClass: string = "btn-outline-primary w-100";
   @Input() iconClass: string = "fa fa-save";
+  
   constructor(private store: Store<{ loading: boolean }>) {
     this.store.select("loading").subscribe(res => {
       this.isloading = res;

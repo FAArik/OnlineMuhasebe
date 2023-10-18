@@ -112,7 +112,7 @@ export class GenericHttpService {
               this._router.navigateByUrl("/login");
             }
           });
-        }
+        } 
         else {
           localStorage.removeItem("accessToken");
           this._router.navigateByUrl("/login");

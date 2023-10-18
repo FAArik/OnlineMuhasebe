@@ -5,12 +5,13 @@ import { ReportModel } from '../models/report.model';
 import { LoginResponseService } from 'src/app/common/services/login-response.service';
 import { RequestModel } from 'src/app/common/models/request.model';
 import { mode } from 'crypto-ts';
+import { ReportRequestModel } from 'src/app/common/models/report-request.model';
+import { MessageResponseModel } from 'src/app/common/models/message-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
-  apiUrl = "Reports/GetAll"
   constructor(
     private _http: GenericHttpService,
     private _loginResponse: LoginResponseService) { }
@@ -19,8 +20,13 @@ export class ReportService {
   getAll(callBack: (res: ReportModel[]) => void) {
     let model: RequestModel = new RequestModel();
     model.companyId = this._loginResponse.getLoginResponseModel().company.companyId;
-    this._http.post<ResponseModel<ReportModel[]>>(this.apiUrl, model, res => {
+    this._http.post<ResponseModel<ReportModel[]>>("Reports/GetAll", model, res => {
       callBack(res.data);
     })
+  }
+  
+  request(model:ReportRequestModel,callBack:(res:MessageResponseModel)=>void){
+    model.companyId=this._loginResponse.getLoginResponseModel().company.companyId;
+    this._http.post<MessageResponseModel>("Reports/Request",model,res=>callBack(res))
   }
 }
