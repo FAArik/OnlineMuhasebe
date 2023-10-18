@@ -27,6 +27,6 @@ export class ReportService {
   
   request(model:ReportRequestModel,callBack:(res:MessageResponseModel)=>void){
     model.companyId=this._loginResponse.getLoginResponseModel().company.companyId;
-    this._http.post<MessageResponseModel>("Reports/Request",model,res=>callBack(res))
+    this._http.post<MessageResponseModel>("Reports/RequestReport",model,res=>callBack(res))
   }
 }

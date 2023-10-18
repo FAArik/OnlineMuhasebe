@@ -52,9 +52,9 @@ namespace OnlineMuhasebeServer.Persistance.Context
         {
             public AppDbContext CreateDbContext(string[] args)
             {
-                var optionsbuilder = new DbContextOptionsBuilder(); 
-                var connectionString = "Data Source=DESKTOP-6C41MI1\\SQLEXPRESS;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-                //var connectionString = "Data Source=CUSTOMOS\\SQLEXPRESS;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+                var optionsbuilder = new DbContextOptionsBuilder();
+                var connectionString = "Data Source=CUSTOMOS\\SQLEXPRESS;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+                //var connectionString = "Data Source=DESKTOP-6C41MI1\\SQLEXPRESS;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
                 optionsbuilder.UseSqlServer(connectionString);
                 var builder = new DbContextOptionsBuilder<AppDbContext>();
                 return new AppDbContext(optionsbuilder.Options);

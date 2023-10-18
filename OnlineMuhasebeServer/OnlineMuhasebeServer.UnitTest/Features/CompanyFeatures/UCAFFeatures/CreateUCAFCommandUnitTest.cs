@@ -4,7 +4,7 @@ using OnlineMuhasebeServer.Application.Services.CompanyService;
 using OnlineMuhasebeServer.Domain.CompanyEntities;
 using Shouldly;
 
-namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures;
+namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures.UCAFFeatures;
 
 public sealed class CreateUCAFCommandUnitTest
 {

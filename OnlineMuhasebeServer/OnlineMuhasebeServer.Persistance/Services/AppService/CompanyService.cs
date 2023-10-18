@@ -15,7 +15,7 @@ public sealed class CompanyService : ICompanyService
     private readonly ICompanyDbQueryRepository _companyDbQueryRepository;
     private readonly IAppUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    
+
 
     public CompanyService(IMapper mapper, ICompanyDbCommandRepository companyDbCommandRepository, ICompanyDbQueryRepository companyDbQueryRepository, IAppUnitOfWork unitOfWork)
     {
@@ -25,10 +25,10 @@ public sealed class CompanyService : ICompanyService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task CreateCompany(CreateCompanyCommand request,CancellationToken cancellationToken)
+    public async Task CreateCompany(CreateCompanyCommand request, CancellationToken cancellationToken)
     {
         Company company = _mapper.Map<Company>(request);
-        company.Id = Guid.NewGuid().ToString(); 
+        company.Id = Guid.NewGuid().ToString();
         await _companyDbCommandRepository.AddAsync(company, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
@@ -38,9 +38,9 @@ public sealed class CompanyService : ICompanyService
         return _companyDbQueryRepository.GetAll();
     }
 
-    public async Task<Company?> GetCompanyByName(string name,CancellationToken cancellationToken)
+    public async Task<Company> GetCompanyByName(string name, CancellationToken cancellationToken)
     {
-        return await _companyDbQueryRepository.GetFirstByExpression(p=>p.Name==name, cancellationToken);
+        return await _companyDbQueryRepository.GetFirstByExpression(p => p.Name == name, cancellationToken);
     }
 
     public async Task MigrateCompanyDatabases()

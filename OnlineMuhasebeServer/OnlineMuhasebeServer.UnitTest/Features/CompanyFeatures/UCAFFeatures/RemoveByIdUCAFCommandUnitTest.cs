@@ -3,7 +3,7 @@ using OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Com
 using OnlineMuhasebeServer.Application.Services.CompanyService;
 using Shouldly;
 
-namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures;
+namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures.UCAFFeatures;
 
 public sealed class RemoveByIdUCAFCommandUnitTest
 {

@@ -1,12 +1,14 @@
 using OnlineMuhasebeServer.Application.Services.AppService;
 using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Application.Services.CompanyService;
+using OnlineMuhasebeServer.Application.Services.CompanyServices;
 using OnlineMuhasebeServer.Domain;
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.CompanyRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.MainRoleAndRoleRelationshipRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.MainRoleAndUserRelationshipRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.MainRoleRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.UserAndCompanyRelationshipRepositories;
+using OnlineMuhasebeServer.Domain.Repositories.CompanyContext.ReportRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.CompanyContext.UCAFRepositories;
 using OnlineMuhasebeServer.Domain.UnitOfWorks;
 using OnlineMuhasebeServer.Persistance;
@@ -15,6 +17,7 @@ using OnlineMuhasebeServer.Persistance.Repositories.AppContext.MainRoleAndRoleRe
 using OnlineMuhasebeServer.Persistance.Repositories.AppContext.MainRoleAndUserRelationshipRepositories;
 using OnlineMuhasebeServer.Persistance.Repositories.AppContext.MainRoleRepositories;
 using OnlineMuhasebeServer.Persistance.Repositories.AppContext.UserAndCompanyRelationshipRepositories;
+using OnlineMuhasebeServer.Persistance.Repositories.CompanyContext.ReportRepositories;
 using OnlineMuhasebeServer.Persistance.Repositories.CompanyContext.UCAFRepositories;
 using OnlineMuhasebeServer.Persistance.Services.AppService;
 using OnlineMuhasebeServer.Persistance.Services.ComparyService;
@@ -36,9 +39,11 @@ public class PersistanceDIServiceInstaller : IServiceInstaller
         #region Services
             #region CompanyDbContext
             services.AddScoped<IUCAFService, UCAFService>();
-
+            services.AddScoped<IReportService, ReportService>();
+            //CompanyServiceDISpot
 
             #endregion
+
             #region AppDbContext
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICompanyService, CompanyService>();
@@ -55,10 +60,13 @@ public class PersistanceDIServiceInstaller : IServiceInstaller
             #region CompanyDbContext
             services.AddScoped<IUCAFCommandRepository, UCAFCommandRepository>();
             services.AddScoped<IUCAFQueryRepository, UCAFQueryRepository>();
-            #endregion
+            services.AddScoped<IReportCommandRepository, ReportCommandRepository>();
+            services.AddScoped<IReportQueryRepository, ReportQueryRepository>();
+            //CompanyRepositoryDISpot
+        #endregion
 
             #region AppDbContext
-            services.AddScoped<ICompanyDbCommandRepository, CompanyDbCommandRepository>();
+        services.AddScoped<ICompanyDbCommandRepository, CompanyDbCommandRepository>();
             services.AddScoped<ICompanyDbQueryRepository, CompanyDbQueryRepository>();
             services.AddScoped<IMainRoleCommandRepository, MainRoleCommandRepository>();
             services.AddScoped<IMainRoleQueryRepository, MainRoleQueryRepository>();

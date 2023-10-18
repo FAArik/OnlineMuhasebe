@@ -247,6 +247,7 @@ public static class Paths
     public static readonly string ProjectPath =
         "C:/Users/Administrator/source/repos/FAArik/OnlineMuhasebe/OnlineMuhasebeServer";
 
+
     #region RepositoryNames
     public static readonly string CommandRepository =
         nameof(CommandRepository);
