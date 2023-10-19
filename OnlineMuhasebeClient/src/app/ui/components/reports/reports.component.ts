@@ -38,8 +38,11 @@ export class ReportsComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.getAll();
+    this.refresh();
+  }
+  refresh(){
     this.interval = setInterval(() => {
-      if (this.count < 5) {
+      if (this.count < 25) {
         this.count++;
         this.getAll();
       } else {

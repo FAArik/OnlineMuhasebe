@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineMuhasebeServer.WebApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineMuhasebeServer.UnitTest", "OnlineMuhasebeServer.UnitTest\OnlineMuhasebeServer.UnitTest.csproj", "{E1ADD15D-4C70-412D-B598-3E7F1B06F1E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineMuhasebeServer.RabbitMQ", "OnlineMuhasebeServer.RabbitMQ\OnlineMuhasebeServer.RabbitMQ.csproj", "{7F39CFA7-8976-4FC0-BD82-5C10E04E48C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{E1ADD15D-4C70-412D-B598-3E7F1B06F1E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1ADD15D-4C70-412D-B598-3E7F1B06F1E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1ADD15D-4C70-412D-B598-3E7F1B06F1E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F39CFA7-8976-4FC0-BD82-5C10E04E48C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F39CFA7-8976-4FC0-BD82-5C10E04E48C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F39CFA7-8976-4FC0-BD82-5C10E04E48C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F39CFA7-8976-4FC0-BD82-5C10E04E48C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{0442860F-036F-4CEE-A71A-C8A89B718A74} = {F277EA27-CE9A-42BA-BBF2-5187F8A3AC25}
 		{A05BAD13-766B-4A0B-9180-430BC44D41F0} = {944303B5-1EB8-43B5-8E9C-B67B9E6322D4}
 		{E1ADD15D-4C70-412D-B598-3E7F1B06F1E0} = {228B2068-EE07-40C6-89D8-15B703B8436A}
+		{7F39CFA7-8976-4FC0-BD82-5C10E04E48C5} = {944303B5-1EB8-43B5-8E9C-B67B9E6322D4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F20B67E-2F4E-4E3B-95A8-1D4E27F98D37}
