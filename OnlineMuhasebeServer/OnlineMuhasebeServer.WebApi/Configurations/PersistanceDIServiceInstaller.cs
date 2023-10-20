@@ -8,6 +8,7 @@ using OnlineMuhasebeServer.Domain.Repositories.AppContext.MainRoleAndRoleRelatio
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.MainRoleAndUserRelationshipRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.MainRoleRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.AppContext.UserAndCompanyRelationshipRepositories;
+using OnlineMuhasebeServer.Domain.Repositories.CompanyContext.LogRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.CompanyContext.ReportRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.CompanyContext.UCAFRepositories;
 using OnlineMuhasebeServer.Domain.UnitOfWorks;
@@ -17,9 +18,11 @@ using OnlineMuhasebeServer.Persistance.Repositories.AppContext.MainRoleAndRoleRe
 using OnlineMuhasebeServer.Persistance.Repositories.AppContext.MainRoleAndUserRelationshipRepositories;
 using OnlineMuhasebeServer.Persistance.Repositories.AppContext.MainRoleRepositories;
 using OnlineMuhasebeServer.Persistance.Repositories.AppContext.UserAndCompanyRelationshipRepositories;
+using OnlineMuhasebeServer.Persistance.Repositories.CompanyContext.LogRepositories;
 using OnlineMuhasebeServer.Persistance.Repositories.CompanyContext.ReportRepositories;
 using OnlineMuhasebeServer.Persistance.Repositories.CompanyContext.UCAFRepositories;
 using OnlineMuhasebeServer.Persistance.Services.AppService;
+using OnlineMuhasebeServer.Persistance.Services.CompanyService;
 using OnlineMuhasebeServer.Persistance.Services.ComparyService;
 using OnlineMuhasebeServer.Persistance.UnitOfWorks;
 //UsingSpot
@@ -40,6 +43,7 @@ public class PersistanceDIServiceInstaller : IServiceInstaller
             #region CompanyDbContext
             services.AddScoped<IUCAFService, UCAFService>();
             services.AddScoped<IReportService, ReportService>();
+                services.AddScoped<ILogService, LogService>();
             //CompanyServiceDISpot
 
             #endregion
@@ -62,6 +66,8 @@ public class PersistanceDIServiceInstaller : IServiceInstaller
             services.AddScoped<IUCAFQueryRepository, UCAFQueryRepository>();
             services.AddScoped<IReportCommandRepository, ReportCommandRepository>();
             services.AddScoped<IReportQueryRepository, ReportQueryRepository>();
+            services.AddScoped<ILogCommandRepository, LogCommandRepository>();
+            services.AddScoped<ILogQueryRepository, LogQueryRepository>();
             //CompanyRepositoryDISpot
         #endregion
 

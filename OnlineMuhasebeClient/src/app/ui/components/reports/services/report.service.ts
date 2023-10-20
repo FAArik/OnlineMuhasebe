@@ -7,6 +7,7 @@ import { RequestModel } from 'src/app/common/models/request.model';
 import { mode } from 'crypto-ts';
 import { ReportRequestModel } from 'src/app/common/models/report-request.model';
 import { MessageResponseModel } from 'src/app/common/models/message-response.model';
+import { PaginationReportModel } from 'src/app/common/models/pagination.result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,12 @@ export class ReportService {
     private _loginResponse: LoginResponseService) { }
 
 
-  getAll(callBack: (res: ReportModel[]) => void) {
+  getAll(pageNumber:number=1,pageSize:number=5,callBack: (res: PaginationReportModel<ReportModel[]>) => void) {
     let model: RequestModel = new RequestModel();
+    model.pageNumber=pageNumber;
+    model.pageSize=pageSize;
     model.companyId = this._loginResponse.getLoginResponseModel().company.companyId;
-    this._http.post<ResponseModel<ReportModel[]>>("Reports/GetAll", model, res => {
+    this._http.post<ResponseModel<PaginationReportModel<ReportModel[]>>>("Reports/GetAll", model, res => {
       callBack(res.data);
     })
   }

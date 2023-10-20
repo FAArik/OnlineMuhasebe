@@ -19,5 +19,10 @@ export const Navigations:Navigation[]=[
         routerLnk:"/reports",
         name:"Raporlar",
         icon:"fa fa-chart-pie"
+    },
+    {
+        routerLnk:"/logs",
+        name:"Log kayıtları",
+        icon:"fa fa-chalkboard-user"
     }
 ]

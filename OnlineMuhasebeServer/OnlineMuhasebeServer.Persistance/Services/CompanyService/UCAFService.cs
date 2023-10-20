@@ -2222,7 +2222,7 @@ public sealed class UCAFService : IUCAFService
         await _UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task CreateUcafAsync(CreateUCAFCommand request, CancellationToken cancellationToken)
+    public async Task<UniformChartOfAccount> CreateUcafAsync(CreateUCAFCommand request, CancellationToken cancellationToken)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
         _commandRepository.SetDbContexInstance(_context);
@@ -2234,6 +2234,7 @@ public sealed class UCAFService : IUCAFService
 
         await _commandRepository.AddAsync(uniformChartOfAccount, cancellationToken);
         await _UnitOfWork.SaveChangesAsync(cancellationToken);
+        return uniformChartOfAccount;
     }
 
     public async Task<IList<UniformChartOfAccount>> GetAllAsync(string companyId)
@@ -2262,14 +2263,16 @@ public sealed class UCAFService : IUCAFService
 
     }
 
-    public async Task RemoveByIdUcafAsync(string Id, string companyId)
+    public async Task<UniformChartOfAccount> RemoveByIdUcafAsync(string Id, string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _UnitOfWork.SetDbContexInstance(_context);
         _commandRepository.SetDbContexInstance(_context);
 
+        UniformChartOfAccount ucaf = await _queryRepository.GetById(Id);
         await _commandRepository.RemoveById(Id);
         await _UnitOfWork.SaveChangesAsync();
+        return ucaf;
     }
 
     public async Task UpdateAsync(UniformChartOfAccount account, string companyId)

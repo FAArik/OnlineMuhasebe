@@ -1,5 +1,8 @@
-﻿using OnlineMuhasebeServer.Application.Messaging;
+﻿using Newtonsoft.Json;
+using OnlineMuhasebeServer.Application.Messaging;
+using OnlineMuhasebeServer.Application.Services;
 using OnlineMuhasebeServer.Application.Services.CompanyService;
+using OnlineMuhasebeServer.Application.Services.CompanyServices;
 using OnlineMuhasebeServer.Domain.CompanyEntities;
 
 namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Commands.UpdateUCAF;
@@ -7,10 +10,14 @@ namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures
 public sealed class UpdateUCAFCommandHandler : ICommandHandler<UpdateUCAFCommand, UpdateUCAFCommandResponse>
 {
     private readonly IUCAFService _ucafService;
+    private readonly ILogService _logService;
+    private readonly IApiService _apiservice;
 
-    public UpdateUCAFCommandHandler(IUCAFService ucafService)
+    public UpdateUCAFCommandHandler(IUCAFService ucafService, ILogService logService, IApiService apiservice)
     {
         _ucafService = ucafService;
+        _logService = logService;
+        _apiservice = apiservice;
     }
 
     public async Task<UpdateUCAFCommandResponse> Handle(UpdateUCAFCommand request, CancellationToken cancellationToken)
@@ -23,6 +30,15 @@ public sealed class UpdateUCAFCommandHandler : ICommandHandler<UpdateUCAFCommand
             UniformChartOfAccount checkNewCode = await _ucafService.GetByCodeAsync(request.CompanyId, request.Code, cancellationToken);
             if (checkNewCode != null) throw new Exception("Bu hesap planı kodu daha önce kullanılmış!");
         }
+        string userId = _apiservice.GetUserIdByToken();
+        Log oldLog = new()
+        {
+            Id = Guid.NewGuid().ToString(),
+            Progress = "BeforeUpdate",
+            TableName = nameof(UniformChartOfAccount),
+            Data = JsonConvert.SerializeObject(checkucaf),
+            UserId = userId
+        };
 
         if (request.Type != "G" && request.Type != "M") throw new Exception("Hesap planı türü Grup yada Muavin olmalıdır!");
 
@@ -31,6 +47,17 @@ public sealed class UpdateUCAFCommandHandler : ICommandHandler<UpdateUCAFCommand
         checkucaf.Name = request.Name;
 
         await _ucafService.UpdateAsync(checkucaf, request.CompanyId);
+        Log NewLog = new()
+        {
+            Id = Guid.NewGuid().ToString(),
+            Progress = "AfterUpdate",
+            TableName = nameof(UniformChartOfAccount),
+            Data = JsonConvert.SerializeObject(checkucaf),
+            UserId = userId
+        };
+        await _logService.AddAsync(oldLog, request.CompanyId);
+        await _logService.AddAsync(NewLog, request.CompanyId);
+
         return new();
     }
 }
