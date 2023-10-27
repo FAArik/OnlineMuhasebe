@@ -1,0 +1,10 @@
+using OnlineMuhasebeServer.Domain.CompanyEntities;
+using OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.CompanyDbContext;
+using OnlineMuhasebeServer.Domain.Repositories.CompanyContext.BookEntryRepositories;
+
+namespace OnlineMuhasebeServer.Persistance.Repositories.CompanyContext.BookEntryRepositories;
+
+public class BookEntryQueryRepository : CompanyQueryRepository<BookEntry>, IBookEntryQueryRepository
+{
+
+}
